@@ -1,4 +1,4 @@
-function line(x1, y1, x2, y2) {
+function line(x1, y1, x2, y2, color) {
     let svgc = document.getElementById('svgc');
     this.svg_line_id = ID();
 
@@ -6,6 +6,7 @@ function line(x1, y1, x2, y2) {
     this.y1 = y1; 
     this.x2 = x2; 
     this.y2 = y2; 
+    this.color = color;
 
 
     if(!svgc) {
@@ -23,7 +24,7 @@ function line(x1, y1, x2, y2) {
     }
 
     this.initLineHTML = function() {
-        return '<line id="svg-line-id-' + this.svg_line_id + '" stroke="#000000" stroke-width="2" />'
+        return '<line id="svg-line-id-' + this.svg_line_id + '" stroke="' + this.color + '" stroke-width="2" />'
     }
 
     this.setLineAttrs = function() {

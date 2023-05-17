@@ -5,6 +5,7 @@ const lines = [];
 document.addEventListener("DOMContentLoaded", function(event) { 
     const numMoons = 11;
     const xOffset = 20;
+    const color = '#b6c1d2'
 
     // Moon vars.
     const radius = 30;
@@ -14,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     for (let i = 0; i < numMoons; i++) {
         const patternMath = separator - (i * (separator/10*period) + separator)%(2*separator);
-        moons.push(new moon(xOffset + radius + (i * separator) + 10*i, yOffset, patternMath))
+        moons.push(new moon(xOffset + radius + (i * separator) + 10*i, yOffset, color, patternMath))
         patternMaths.push(patternMath);
     }
 
@@ -23,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // debug(index, patternMaths[index], moon);
     });
 
-    lines.push(new line(xOffset + radius*2, yOffset, xOffset +(numMoons * separator) + radius+10, yOffset));
+    lines.push(new line(xOffset + radius*2, yOffset, xOffset +(numMoons * separator) + radius+10, yOffset, color));
     lines[0].draw();
 
 });
