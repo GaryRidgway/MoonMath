@@ -1,5 +1,8 @@
-function line(x1, y1, x2, y2, color) {
-    let svgc = document.querySelector('#svgc defs #mask');
+function line(x1, y1, x2, y2, color, mask=true, svgc = 'svgc') {
+    this.svgc = document.querySelector('#' + svgc);
+    if (mask) {
+        this.svgc = this.svgc.querySelector('defs #mask');
+    }
     this.svg_line_id = ID();
 
     this.x1 = x1;
@@ -9,13 +12,13 @@ function line(x1, y1, x2, y2, color) {
     this.color = color;
 
 
-    if(!svgc) {
+    if(!this.svgc) {
         console.error('No SVG Canvas found.');
     }
 
     this.draw = function() {
         if (!document.querySelector('#svg-line-id-' + this.svg_line_id)) {
-            svgc.innerHTML += this.initLineHTML();
+            this.svgc.innerHTML += this.initLineHTML();
             this.setLineAttrs();
         }
         else {
@@ -27,11 +30,17 @@ function line(x1, y1, x2, y2, color) {
         return '<line id="svg-line-id-' + this.svg_line_id + '" stroke="' + this.color + '" stroke-width="2" />'
     }
 
-    this.setLineAttrs = function() {
+    this.setLineAttrs = function(rotation=0) {
         const line = document.getElementById('svg-line-id-' + this.svg_line_id);
         line.setAttribute('x1', this.x1);
         line.setAttribute('y1', this.y1);
         line.setAttribute('x2', this.x2);
         line.setAttribute('y2', this.y2);
+
+        if (rotation !== 0) {
+            line.classList.add('deco-line');
+            line.setAttribute('transform', 'rotate(' + rotation + ')');
+        }
+        
     }
 }

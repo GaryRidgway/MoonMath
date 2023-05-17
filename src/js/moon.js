@@ -1,5 +1,8 @@
-function moon(x, y, color, xOffset = 0, yOffset = 0) {
-    let svgc = document.querySelector('#svgc defs #mask');
+function moon(x, y, color, xOffset = 0, yOffset = 0, mask=true, svgc='svgc') {
+    this.svgc = document.querySelector('#' + svgc);
+    if (mask) {
+        this.svgc = this.svgc.querySelector('defs #mask');
+    }
 
     this.svg_moon_id = ID();
     this.x = x;
@@ -9,13 +12,13 @@ function moon(x, y, color, xOffset = 0, yOffset = 0) {
     this.yOffset = yOffset;
     this.radius = 30;
 
-    if(!svgc) {
+    if(!this.svgc) {
         console.error('No SVG Canvas found.');
     }
 
     this.draw = function() {
         if (!document.querySelector('#svg-moon-id-' + this.svg_moon_id)) {
-            svgc.innerHTML += this.initMoonHtml();
+            this.svgc.innerHTML += this.initMoonHtml();
         }
     }
 

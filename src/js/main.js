@@ -1,6 +1,7 @@
 const moons = [];
 const patternMaths = [];
 const lines = [];
+const decoLines = [];
 
 document.addEventListener("DOMContentLoaded", function(event) { 
     const svgc = document.getElementById('svgc');
@@ -31,6 +32,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     svgc.setAttribute('width', (numMoons*radius*2) +((numMoons-1) * 10) + 2);
     svgc.setAttribute('height', radius*2 + 2);
+
+
+    // SVGC 2
+
+    const svgc2 = document.getElementById('svgc-2');
+    const numDegrees = 50;
+    for(let i = 0; i < numDegrees; i++) {
+        decoLines.push(new line(100, 0, 100, 10, '#fafafa', false, 'svgc-2'));
+        decoLines[i].draw();
+        decoLines[i].setLineAttrs((360/numDegrees)*i);
+    }
+
 
 });
 
