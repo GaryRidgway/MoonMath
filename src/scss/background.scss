@@ -1,5 +1,7 @@
 .bg.cover {
-    object-fit: cover;
     height: 100%;
     width: 100%;
+    object-fit: cover;
+    -webkit-mask-image: url(#mask);
+    mask-image: url(#mask);
 }

@@ -1,5 +1,5 @@
 function line(x1, y1, x2, y2, color) {
-    let svgc = document.getElementById('svgc');
+    let svgc = document.querySelector('#svgc defs #mask');
     this.svg_line_id = ID();
 
     this.x1 = x1;

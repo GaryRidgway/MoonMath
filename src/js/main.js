@@ -3,13 +3,15 @@ const patternMaths = [];
 const lines = [];
 
 document.addEventListener("DOMContentLoaded", function(event) { 
+    const svgc = document.getElementById('svgc');
     const numMoons = 11;
-    const xOffset = 20;
-    const color = '#b6c1d2'
+    const xOffset = 1;
+    // const color = '#b6c1d2'
+    const color = '#FFFFFF'
 
     // Moon vars.
     const radius = 30;
-    const yOffset = 105;
+    const yOffset = radius+1;
     const separator = 2*radius;
     const period = 2;
 
@@ -26,6 +28,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     lines.push(new line(xOffset + radius*2, yOffset, xOffset +(numMoons * separator) + radius+10, yOffset, color));
     lines[0].draw();
+
+    svgc.setAttribute('width', (numMoons*radius*2) +((numMoons-1) * 10) + 2);
+    svgc.setAttribute('height', radius*2 + 2);
 
 });
 

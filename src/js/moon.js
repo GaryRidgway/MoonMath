@@ -1,5 +1,5 @@
 function moon(x, y, color, xOffset = 0, yOffset = 0) {
-    let svgc = document.getElementById('svgc');
+    let svgc = document.querySelector('#svgc defs #mask');
 
     this.svg_moon_id = ID();
     this.x = x;
