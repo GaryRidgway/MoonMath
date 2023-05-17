@@ -7,25 +7,22 @@
     <!-- Add css files fromt the dist folder here -->
     <link type="text/css" rel="stylesheet" href="./dist/css/reset.css">
     <link type="text/css" rel="stylesheet" href="./dist/css/general.css">
+    <link type="text/css" rel="stylesheet" href="./dist/css/background.css">
+    <link type="text/css" rel="stylesheet" href="./dist/css/svgc.css">
 </head>
 
 <body>
+  <!-- <img class="bg cover" src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/warm-sunrise-justin-cale.jpg" alt="A warm sunrise." /> -->
 
-    <svg id="svgc" width="100%" height="100%">
-        <defs>
-          <mask id="moonMask">
-            <rect fill="white" height="100%" width="100%"></rect>
-          </mask>
-        </defs>
-      </svg>
-      
-      <div id="controls">
-        <input type="range" min="-202" max="202" value="0" class="slider" id="eclipse">
-      </div>
-
+  <svg id="svgc" width="100%" height="100%">
+      <defs>
+      </defs>
+    </svg>
 
 <!-- vvv Add scripts here from dist folder vvv -->
 <script src="./dist/js/main.min.js"></script>
-<script src="./dist/js/moon.min.js"></script>
+<script src="./dist/js/Moon.min.js"></script>
+<script src="./dist/js/Line.min.js"></script>
+<script src="./dist/js/ID.min.js"></script>
 </body>
 </html>
