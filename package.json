@@ -1,0 +1,33 @@
+{
+  "name": "moonmath",
+  "version": "1.0.0",
+  "description": "Some cool svg patterns",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "node-sass ./src/scss/ -o ./dist/css",
+    "minify:jsf": "jsdoc ./src/js/*.js -d gh-pages -c jsdoc.config.json & uglifyjs-folder ./src/js/ -eo ./dist/js ",
+    "jsdoc": "./node_modules/.bin/jsdoc",
+    "build": "npm run compile:sass & npm run minify:jsf",
+    "watch": "npm run build && node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GaryRidgway/MoonMath.git"
+  },
+  "keywords": [
+    "svg"
+  ],
+  "author": "Alan Way",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GaryRidgway/MoonMath/issues"
+  },
+  "homepage": "https://github.com/GaryRidgway/MoonMath#readme",
+  "devDependencies": {
+    "chokidar": "^3.5.3",
+    "fs-extra": "^11.1.0",
+    "jsdoc": "^4.0.2",
+    "node-sass": "^8.0.0",
+    "uglifyjs-folder": "^3.2.0"
+  }
+}

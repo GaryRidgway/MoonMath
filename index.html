@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Slider 2D</title>
+
+    <!-- Add css files fromt the dist folder here -->
+    <link type="text/css" rel="stylesheet" href="./dist/css/reset.css">
+</head>
+
+<body>
+
+    <svg id="svgc" width="100%" height="100%">
+        <defs>
+          <mask id="hole">
+            <rect fill="white" height="100%" width="100%"></rect>
+            <circle r="100" cx="105" cy="105" fill="black" />
+          </mask>
+        </defs>
+      
+        <circle id="donut" r="100" cx="105" cy="105" stroke="#b6c1d2" stroke-width="4" fill="#b6c1d2" mask="url(#hole)" />
+      
+      </svg>
+      
+      <div id="controls">
+        <input type="range" min="-202" max="202" value="0" class="slider" id="eclipse">
+      </div>
+
+
+<!-- vvv Add scripts here from dist folder vvv -->
+<script src="./dist/js/main.min.js"></script>
+</body>
+</html>
