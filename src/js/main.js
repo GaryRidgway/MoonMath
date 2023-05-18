@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // lines.push(new line(xOffset + radius, yOffset-radius, xOffset +(numMoons * separator) +10, yOffset-radius, color));
     // lines[0].draw();
 
-    svgc.setAttribute('width', (numMoons*radius*2) +((numMoons-1) * 10) + 2);
-    svgc.setAttribute('height', radius*2 + 2);
+    // svgc.setAttribute('width', (numMoons*radius*2) +((numMoons-1) * 10) + 2);
+    // svgc.setAttribute('height', radius*2 + 2);
 
 
     // SVGC 2
@@ -45,13 +45,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // }
 
     let config = new Config({
-        mask: false,
-        svgc: 'svgc-2'
+        mask: true,
+        svgc: 'svgc'
     });
     const dMoon = new DecoratedMoon(config);
     dMoon.draw();
 
-    visualDebug({x:100, y:100},'#svgc-2');
+    visualDebug({x:100, y:100},'#svgc');
 
 });
 

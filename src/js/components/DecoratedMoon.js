@@ -43,8 +43,8 @@ function DecoratedMoon(config) {
     this.decorationMoons = function() {
         for(let i = 0; i < 1; i++) {
             let dMoonsConfig = new Config({
-                mask: false,
-                svgc: 'svgc-2',
+                mask: config.mask,
+                svgc: config.svgc,
                 xOffset: 20
             });
 
