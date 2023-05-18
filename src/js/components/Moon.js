@@ -1,16 +1,17 @@
-function Moon(x, y, color, xOffset = 0, yOffset = 0, mask=true, svgc='svgc') {
-    this.svgc = document.querySelector('#' + svgc);
-    if (mask) {
+function Moon(config) {
+    this.svgc = document.querySelector('#' + config.svgc);
+
+    if (config.mask) {
         this.svgc = this.svgc.querySelector('defs #mask');
     }
 
     this.svg_moon_id = ID();
-    this.x = x;
-    this.y = y;
-    this.color = color;
-    this.xOffset = xOffset;
-    this.yOffset = yOffset;
-    this.radius = 30;
+    this.x = config.x;
+    this.y = config.y;
+    this.color = config.color;
+    this.xOffset = config.xOffset;
+    this.yOffset = config.yOffset;
+    this.radius = config.radius;
 
     if(!this.svgc) {
         console.error('No SVG Canvas found.');
@@ -23,7 +24,7 @@ function Moon(x, y, color, xOffset = 0, yOffset = 0, mask=true, svgc='svgc') {
     }
 
     this.initMoonHtml = function() {
-        const intersects = intersectTwoCircles(this.x - this.radius ,this.y - this.radius, this.radius, (this.x + this.xOffset - this.radius), (this.y + this.yOffset - this.radius), this.radius);
+        const intersects = intersectTwoCircles(this.x ,this.y, this.radius, (this.x + this.xOffset), (this.y + this.yOffset), this.radius);
         arcHtml = '';
         if (intersects[1]) {
             const startingPoint = intersects[0];
@@ -32,10 +33,10 @@ function Moon(x, y, color, xOffset = 0, yOffset = 0, mask=true, svgc='svgc') {
             const Arc2 = svgArcCircle(this.radius, startingPoint[0], startingPoint[1], 'outwards', false);
             arcHtml = '<path d="M' + startingPoint[0] + ' ' + startingPoint[1] + '' + Arc1 + ' ' + Arc2 + '" stroke="' + this.color + '" stroke-width="0" fill="' + this.color + '"/>'
             if (isNaN(startingPoint[0]) || isNaN(startingPoint[1]) || isNaN(midPoint[0]) || isNaN(midPoint[1])) {
-                arcHtml = '<circle id="svg-moon-id-' + this.svg_moon_id + '" svg-moon-id="' + this.svg_moon_id + '" stroke="' + this.color + '" stroke-width="2" fill="none" r="' + (this.radius - 1) + '" cx="' + (this.x -this.radius) + '" cy="' + (this.y -this.radius) + '"/>';
+                arcHtml = '<circle id="svg-moon-id-' + this.svg_moon_id + '" svg-moon-id="' + this.svg_moon_id + '" stroke="' + this.color + '" stroke-width="2" fill="none" r="' + (this.radius - 1) + '" cx="' + (this.x) + '" cy="' + (this.y) + '"/>';
             }
             else if (intersects[0][0] == intersects[1][0] && intersects[0][1] == intersects[1][1]) {
-                arcHtml = '<circle id="svg-moon-id-' + this.svg_moon_id + '" svg-moon-id="' + this.svg_moon_id + '" stroke="' + this.color + '" stroke-width="2" fill="' + this.color + '" r="' + (this.radius - 1) + '" cx="' + (this.x -this.radius) + '" cy="' + (this.y -this.radius) + '"/>';
+                arcHtml = '<circle id="svg-moon-id-' + this.svg_moon_id + '" svg-moon-id="' + this.svg_moon_id + '" stroke="' + this.color + '" stroke-width="2" fill="' + this.color + '" r="' + (this.radius - 1) + '" cx="' + (this.x) + '" cy="' + (this.y) + '"/>';
             } 
         }
 

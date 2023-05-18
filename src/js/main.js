@@ -44,9 +44,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //     decoLines[i].setLineAttrs((360/numDegrees)*i);
     // }
 
-    const dMoon = new DecoratedMoon(100, 100, '#fafafa', false, 'svgc-2');
+    let config = new Config({
+        mask: false,
+        svgc: 'svgc-2'
+    });
+    const dMoon = new DecoratedMoon(config);
     dMoon.draw();
 
+    visualDebug({x:100, y:100},'#svgc-2');
 
 });
 
@@ -56,4 +61,11 @@ function debug(index, patternMath, moon) {
     console.log('x·············' + moon.x);
     console.log('maskX·········' + (moon.x + moon.xOffset));
     console.log('patternMath···' + patternMath);
+}
+
+function visualDebug(position, svgc) {
+    color = 'red';
+    document.querySelector(svgc).innerHTML += '<circle cx="100" cy="100" r="5" fill="' + color + '">';
+    document.querySelector(svgc).innerHTML += '<line stroke="' + color + '" x1="' + (position.x - 50) + '"  y1="' + (position.y) + '" x2="' + (position.x + 50) + '" y2="' + (position.y) + '"stroke-width="1" />';
+    document.querySelector(svgc).innerHTML += '<line stroke="' + color + '" x1="' + (position.x) + '"  y1="' + (position.y - 50) + '" x2="' + (position.x) + '" y2="' + (position.y + 50) + '"stroke-width="1" />';
 }
