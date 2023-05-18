@@ -25,14 +25,27 @@ function DecoratedMoon(config) {
         this.decorationMoonData['moons'].forEach(function(moon, index) {
             moon.draw();
         });
+
+        this.circles.forEach(function(circle, index) {
+            circle.draw();
+        });
     }
 
     this.attenuate = function() {
     }
 
     this.radialLines = []
+    this.circles = [];
     this.initDecoratedMoonHtml = function() {
         this.radialLines.push(new RadialLines(config));
+        this.cConfig = new Config(config);
+        this.cConfig.merge({
+            stroke_width: 1,
+            radius: 51
+        });
+        this.circles.push(new Circle(this.cConfig));
+        this.cConfig.merge({radius: 61});
+        this.circles.push(new Circle(this.cConfig));
         this.decorationMoons();
         return '';
     }

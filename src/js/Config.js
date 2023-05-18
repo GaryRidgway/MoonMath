@@ -8,10 +8,15 @@ function Config(config = null) {
     this.svgc = 'svgc';
     this.radius = 30;
 
-    if (config) {
-        const keys = Object.keys(config);
+    
+    this.merge = function(newConfig) {
+        const keys = Object.keys(newConfig);
         for (let i = 0; i < keys.length; i++) {
-            this[keys[i].toString()] = config[keys[i]];
+            this[keys[i].toString()] = newConfig[keys[i]];
         }
+    }
+
+    if (config) {
+        this.merge(config);
     }
 }

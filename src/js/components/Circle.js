@@ -12,6 +12,7 @@ function Circle(config) {
     this.xOffset = config.xOffset;
     this.yOffset = config.yOffset;
     this.radius = config.radius;
+    this.stroke_width = config.stroke_width;
 
     if(!this.svgc) {
         console.error('No SVG Canvas found.');
@@ -24,7 +25,7 @@ function Circle(config) {
     }
 
     this.initCircleHtml = function() {
-        return '<circle id="svg-circle-id-' + this.svg_circle_id + '" svg-circle-id="' + this.svg_circle_id + '" stroke="' + this.color + '" stroke-width="2" fill="' + this.color + '" r="' + (this.radius - 1) + '" cx="' + (this.x) + '" cy="' + (this.y) + '"/>';
+        return '<circle id="svg-circle-id-' + this.svg_circle_id + '" svg-circle-id="' + this.svg_circle_id + '" stroke="' + this.color + '" stroke-width="' + this.stroke_width + '" fill="none" r="' + (this.radius - 1) + '" cx="' + (this.x) + '" cy="' + (this.y) + '"/>';
 
     }
 }
