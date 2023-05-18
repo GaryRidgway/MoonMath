@@ -30,7 +30,7 @@ function line(x1, y1, x2, y2, color, mask=true, svgc = 'svgc') {
         return '<line id="svg-line-id-' + this.svg_line_id + '" stroke="' + this.color + '" stroke-width="2" />'
     }
 
-    this.setLineAttrs = function(rotation=0) {
+    this.setLineAttrs = function(rotation=0, transformOrigin=null, strokeWidth=null) {
         const line = document.getElementById('svg-line-id-' + this.svg_line_id);
         line.setAttribute('x1', this.x1);
         line.setAttribute('y1', this.y1);
@@ -38,9 +38,15 @@ function line(x1, y1, x2, y2, color, mask=true, svgc = 'svgc') {
         line.setAttribute('y2', this.y2);
 
         if (rotation !== 0) {
-            line.classList.add('deco-line');
             line.setAttribute('transform', 'rotate(' + rotation + ')');
         }
-        
+
+        if (transformOrigin) {
+            line.style.transformOrigin =  transformOrigin;
+        }
+
+        if (strokeWidth) {
+            line.setAttribute('stroke-width', strokeWidth);
+        }
     }
 }
