@@ -1,4 +1,4 @@
-function Config(config = null) {
+function Config(inheritConfig = null, config = null) {
     this.x = 100;
     this.y = 100;
     this.color = '#b6c1d2';
@@ -14,6 +14,10 @@ function Config(config = null) {
         for (let i = 0; i < keys.length; i++) {
             this[keys[i].toString()] = newConfig[keys[i]];
         }
+    }
+
+    if (inheritConfig) {
+        this.merge(inheritConfig);
     }
 
     if (config) {

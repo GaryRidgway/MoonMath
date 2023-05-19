@@ -14,8 +14,9 @@ function RadialLines(config) {
     this.color = config.color;
 
     this.radius = config.radius;
-    this.gapBetweenMoonAndDecorationLines = 20;
-    this.decorationLineLength = 10;
+    this.gap = config.gap;
+    this.lineLength = config.lineLength;
+    this.gapBetweenMoonAndDecorationLines = this.radius + this.gap;
 
     this.draw = function() {
         this.radialDecorationLinesData['lines'].forEach(function(line, index) {
@@ -42,10 +43,10 @@ function RadialLines(config) {
         'lines': [],
         'lineCount': 0
     };
-    this.drawDistance = this.gapBetweenMoonAndDecorationLines + this.decorationLineLength;
+    this.drawDistance = this.gapBetweenMoonAndDecorationLines + this.lineLength;
     this.radialDecorationLines = function(lineCount) {
         for(let i = 0; i < lineCount; i++) {
-            this.radialDecorationLinesData['lines'].push(new line(this.x, this.y + this.drawDistance + this.radius, this.x, this.y + this.gapBetweenMoonAndDecorationLines + this.radius, config.color, config.mask, config.svgc));
+            this.radialDecorationLinesData['lines'].push(new line(this.x, this.y + this.gapBetweenMoonAndDecorationLines, this.x, this.y + this.gapBetweenMoonAndDecorationLines + this.lineLength, config.color, config.mask, config.svgc));
             this.radialDecorationLinesData['lineCount']++;
         }
     }

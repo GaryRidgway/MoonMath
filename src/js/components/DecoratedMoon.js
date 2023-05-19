@@ -11,6 +11,7 @@ function DecoratedMoon(config) {
     this.svg_decorated_moon_id = ID();
     this.x = config.x;
     this.y = config.y;
+    this.radius = config.radius;
     this.color = config.color;
 
     this.draw = function() {
@@ -37,15 +38,39 @@ function DecoratedMoon(config) {
     this.radialLines = []
     this.circles = [];
     this.initDecoratedMoonHtml = function() {
-        this.radialLines.push(new RadialLines(config));
-        this.cConfig = new Config(config);
-        this.cConfig.merge({
-            stroke_width: 1,
-            radius: 51
-        });
+        const rLines = new Config(
+            config,
+            {
+                lineLength: 10,
+                gap: 25
+            }
+        );
+        this.radialLines.push(new RadialLines(rLines));
+        this.cConfig = new Config(
+            config,
+            {
+                stroke_width: 1,
+                fill: 'none',
+                radius: this.radius + rLines.gap + 1
+            }
+        );
         this.circles.push(new Circle(this.cConfig));
-        this.cConfig.merge({radius: 61});
-        this.circles.push(new Circle(this.cConfig));
+        this.sConfig = new Config(
+            config,
+            {
+                stroke_width: 1,
+                fill: 'none',
+                radius: this.radius + rLines.gap + rLines.lineLength + 1
+            }
+        );
+        this.circles.push(new Circle(this.sConfig));
+        this.circles.push(new Circle(new Config(
+            this.cConfig,
+            {
+                radius: this.radius,
+                dash: '10 4'
+            }
+        )));
         this.decorationMoons();
         return '';
     }
@@ -55,13 +80,14 @@ function DecoratedMoon(config) {
     };
     this.decorationMoons = function() {
         for(let i = 0; i < 1; i++) {
-            let dMoonsConfig = new Config({
+            let dMoonsConfig = new Config(config);
+            dMoonsConfig.merge({
                 mask: config.mask,
                 svgc: config.svgc,
-                xOffset: 20
+                radius: this.radius,
+                xOffset: 60
             });
 
-            
             this.decorationMoonData['moons'].push(new Moon(dMoonsConfig));
         }
     }

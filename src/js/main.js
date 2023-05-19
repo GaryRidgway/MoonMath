@@ -45,6 +45,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // }
 
     let config = new Config({
+        x: 300,
+        y: 300,
+        radius: 100,
         mask: true,
         svgc: 'svgc'
     });

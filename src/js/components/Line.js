@@ -11,7 +11,6 @@ function line(x1, y1, x2, y2, color, mask=true, svgc = 'svgc') {
     this.y2 = y2; 
     this.color = color;
 
-
     if(!this.svgc) {
         console.error('No SVG Canvas found.');
     }
