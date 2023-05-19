@@ -1,0 +1,3 @@
+class NCircle extends PSVG() {
+
+}
