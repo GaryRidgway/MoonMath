@@ -1,4 +1,11 @@
-class CNF {
+
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class CNF {
     /**
      * Takes any number of config objects and add them to the default config in order.
      */
@@ -35,11 +42,16 @@ class CNF {
     }
 
     merge() {
-        for(let i = 0; i < arguments.length; i++) {
+        for(let i = 0; i &lt; arguments.length; i++) {
             const keys = Object.keys(arguments[i]);
-            for (let j = 0; j < keys.length; j++) {
+            for (let j = 0; j &lt; keys.length; j++) {
                 this[keys[j].toString()] = arguments[i][keys[j]];
             }
         }
     }
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
