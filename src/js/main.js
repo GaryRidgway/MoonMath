@@ -44,14 +44,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //     decoLines[i].setLineAttrs((360/numDegrees)*i);
     // }
 
-    let config = new Config({
+    let configObjOnly = {
         x: 300,
         y: 300,
         radius: 100,
         mask: true,
+        'is-mask': true,
         svgc: 'svgc'
-    });
-    const dMoon = new DecoratedMoon(config);
+    };
+    let config = new Config(configObjOnly);
+    const dMoon = new DecoratedMoon(config, configObjOnly);
     dMoon.draw();
 
     visualDebug({x:100, y:100},'#svgc');

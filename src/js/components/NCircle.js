@@ -4,13 +4,18 @@ class NCircle extends PSVG {
 
         this.config.merge({
             tag: 'circle',
-            'stroke-width' : 2,
             r: 0,
+            stroke: '#ffffff'
+        });
+
+        this.config.merge.apply(this.config, arguments);
+
+        this.config.merge({
             cx: this.config.x,
             cy: this.config.y
         });
 
-        this.config.merge.apply(this.config, arguments);
+        // this.draw();
     }
 
     draw() {

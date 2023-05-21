@@ -13,23 +13,14 @@ class CNF {
             tag: 'div',
             x : 0,
             y : 0,
-            stroke : '#FFFFFF',
-            fill : '#FFFFFF',
+            stroke : 'none',
+            fill : 'none',
             'stroke-width' : 1,
-            mask : false,
+            'is-mask' : false,
             'svgc-id' : 'svgc',
             'stroke-dasharray' : 'none',
             id: ID()
         };
-
-        const selector = document.querySelector('#' + dCNF['svgc-id']);
-        console.log(selector)
-        if(!dCNF.mask) {
-            dCNF['svgc-selector'] = selector;
-        }
-        else {
-            dCNF['svgc-selector'] = selector.querySelector('defs #mask');
-        }
 
         this.merge(dCNF);
     }
@@ -40,6 +31,15 @@ class CNF {
             for (let j = 0; j < keys.length; j++) {
                 this[keys[j].toString()] = arguments[i][keys[j]];
             }
+        }
+
+        const selector = document.querySelector('#' + this['svgc-id']);
+        if(!this['is-mask']) {
+            this['svgc-selector'] = selector;
+        }
+
+        else {
+            this['svgc-selector'] = selector.querySelector('defs #mask');
         }
     }
 }
