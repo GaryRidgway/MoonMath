@@ -35,7 +35,7 @@ class RadialLines extends PSVG {
     radialDecorationLines(lineCount) {
         for(let i = 0; i < lineCount; i++) {
             this.render_array.push(
-                new NLine(
+                new Line(
                     {
                         x: this.config.x,
                         y: this.config.y + this.config.gapBetweenMoonAndDecorationLines,

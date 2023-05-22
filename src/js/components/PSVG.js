@@ -3,13 +3,14 @@ class PSVG {
         this.config = new CNF();
         this.config.merge.apply(this.config, arguments);
         this.render_array = [];
+        this.id = ID();
     }
 
     draw() {
         if (!this.config.container) {
             let entries = Object.keys(this.config);
 
-            let element = this.config['svgc-selector'].querySelector('#' + this.config.id);
+            let element = this.config['svgc-selector'].querySelector('#' + this.id);
             if(!element) {
                 let elementHtmlArray = ['<' + this.config['tag']];
     
@@ -21,6 +22,7 @@ class PSVG {
                     
                     entries.splice(i, 1);
                 }
+                elementHtmlArray.push('id="' + this.id + '"');
                 elementHtmlArray.push('/>');
     
                 this.config['svgc-selector'].innerHTML += elementHtmlArray.join(' ');

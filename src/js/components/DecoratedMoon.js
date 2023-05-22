@@ -1,96 +1,61 @@
-function DecoratedMoon(config, objOnly = false) {
-    this.svgc = document.querySelector('#' + config.svgc);
-    if (config.mask) {
-        this.svgc = this.svgc.querySelector('defs #mask');
-    }
+class DecoratedMoon extends PSVG {
+    constructor() {
+        super();
 
-    if(!this.svgc) {
-        console.error('No SVG Canvas found.');
-    }
-
-    this.svg_decorated_moon_id = ID();
-    this.x = config.x;
-    this.y = config.y;
-    this.radius = config.radius;
-    this.color = config.color;
-
-    this.draw = function() {
-        if (!document.querySelector('#svg_decorated_moon_id-' + this.svg_decorated_moon_id)) {
-            this.svgc.innerHTML += this.initDecoratedMoonHtml();
-        }
-
-        this.radialLines.forEach(function(lines, index) {
-            lines.draw();
+        this.config.merge({
+            container: true,
+            stroke: '#ffffff',
+            gap: 0,
+            lineLength:0,
+            lineCount: 0,
         });
 
-        this.decorationMoonData['moons'].forEach(function(moon, index) {
-            moon.draw();
+        this.config.merge.apply(this.config, arguments);
+
+        this.config.merge({
         });
 
-        this.circles.forEach(function(circle, index) {
-            circle.draw();
+        this.initDecoratedMoonHtml();
+    }
+
+    draw() {
+        this.render_array.forEach(function(element) {
+            element.draw();
         });
     }
 
-    this.attenuate = function() {
-    }
-
-    this.radialLines = []
-    this.circles = [];
-    this.initDecoratedMoonHtml = function() {
-        rLines = {
-            'is-mask': config.mask,
-            svgc: config.svgc,
-            r: this.radius,
-            gap: 25,
-            lineLength:10,
-            lineCount: 50,
-            x: this.x,
-            y: this.y,
-        };
-
-        this.radialLines.push(new RadialLines(rLines));
-
+    initDecoratedMoonHtml() {
+        this.render_array.push(new RadialLines(this.config));
 
         const newCNF1 = 
         {
-            'is-mask': config.mask,
-            svgc: config.svgc,
-            stroke_width: 1,
-            fill: 'none',
-            r: this.radius + rLines.gap + 1
+            container: false,
+            r: this.config.r + this.config.gap
         };
         
-        this.circles.push(new Circle(objOnly, newCNF1));
-        this.circles.push(new Circle(objOnly, newCNF1, 
+        this.render_array.push(new Circle(this.config, newCNF1));
+        this.render_array.push(new Circle(this.config, newCNF1, 
             {
-                r: this.radius + rLines.gap + rLines.lineLength + 1
+                r: this.config.r + this.config.gap + this.config.lineLength
             }
         ));
 
-        this.circles.push(new Circle(objOnly, newCNF1, 
+        this.render_array.push(new Circle(this.config, newCNF1, 
             {
-                r: this.radius,
+                r: this.config.r,
                 'stroke-dasharray': '10 4'
             }
         ));
-        this.decorationMoons();
-        return '';
-    }
 
-    this.decorationMoonData = {
-        'moons': []
-    };
-    this.decorationMoons = function() {
-        for(let i = 0; i < 1; i++) {
-            this.decorationMoonData['moons'].push(new NMoon({
-                'is-mask': config.mask,
-                svgc: config.svgc,
-                r: this.radius,
+        this.render_array.push(new Moon(
+            this.config,
+            {
+                container: false,
                 xOffset: 80,
-                x: config.x,
-                y: config.y
-            }));
-        }
+                fill: this.config.stroke
+            }
+        ));
+
+        return '';
     }
 }

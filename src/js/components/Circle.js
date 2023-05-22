@@ -3,7 +3,6 @@ class Circle extends PSVG {
         super();
 
         this.config.merge({
-            tag: 'circle',
             r: 0,
             stroke: '#ffffff'
         });
@@ -11,6 +10,7 @@ class Circle extends PSVG {
         this.config.merge.apply(this.config, arguments);
 
         this.config.merge({
+            tag: 'circle',
             cx: this.config.x,
             cy: this.config.y
         });

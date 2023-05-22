@@ -19,8 +19,7 @@ class CNF {
             'stroke-width' : 1,
             'is-mask' : false,
             'svgc-id' : 'svgc',
-            'stroke-dasharray' : 'none',
-            id: ID()
+            'stroke-dasharray' : 'none'
         };
 
         this.merge(dCNF);

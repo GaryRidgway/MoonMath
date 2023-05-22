@@ -11,53 +11,57 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // Moon vars.
     const radius = 30;
-    const xOffset = 1 + radius;
-    const yOffset = 2*radius+1;
+    const xOffset = radius;
+    const yOffset = 2*radius;
     const separator = 2*radius;
     const period = 2;
 
-    // for (let i = 0; i < numMoons; i++) {
-    //     const patternMath = separator - (i * (separator/10*period) + separator)%(2*separator);
-    //     moons.push(new Moon(xOffset + radius + (i * separator) + 10*i, yOffset, color, patternMath))
-    //     patternMaths.push(patternMath);
-    // }
+    for (let i = 0; i < numMoons; i++) {
+        const patternMath = separator - (i * (separator/10*period) + separator)%(2*separator);
+        moons.push(
+            new Moon(
+                {
+                    'is-mask': true,
+                    x: xOffset + radius + (i * separator) + 10*i,
+                    y: yOffset,
+                    r: radius,
+                    container: false,
+                    xOffset: patternMath,
+                    fill: color
+                }
+            )
+        )
+        patternMaths.push(patternMath);
+    }
 
     moons.forEach(function(moon, index){
         moon.draw();
         // debug(index, patternMaths[index], moon);
     });
 
-    // lines.push(new line(xOffset + radius, yOffset-radius, xOffset +(numMoons * separator) +10, yOffset-radius, color));
-    // lines[0].draw();
+    const line = new Line({
+        'is-mask': true,
+        x: xOffset + radius*2 - 1,
+        y: yOffset,
+        x2: xOffset +(numMoons * separator) + radius + 10 + 1,
+        y2: yOffset,
+        stroke: color
+    });
+    line.draw();
 
-    // svgc.setAttribute('width', (numMoons*radius*2) +((numMoons-1) * 10) + 2);
-    // svgc.setAttribute('height', radius*2 + 2);
-
-
-    // SVGC 2
-
-    // const svgc2 = document.getElementById('svgc-2');
-    // const numDegrees = 50;
-    // for(let i = 0; i < numDegrees; i++) {
-    //     decoLines.push(new line(100, 0, 100, 10, '#fafafa', false, 'svgc-2'));
-    //     decoLines[i].draw();
-    //     decoLines[i].setLineAttrs((360/numDegrees)*i);
-    // }
-
-    let configObjOnly = {
+    const dMoon = new DecoratedMoon({
         x: 300,
         y: 300,
-        radius: 100,
-        mask: false,
-        'is-mask': false,
-        svgc: 'svgc'
-    };
-    let config = new Config(configObjOnly);
-    console.log(config);
-    const dMoon = new DecoratedMoon(config, configObjOnly);
+        r: 100,
+        'is-mask': true,
+        svgc: 'svgc',
+        gap: 25,
+        lineLength: 10,
+        lineCount: 50,
+    });
     dMoon.draw();
 
-    visualDebug({x:100, y:100},'#svgc');
+    // visualDebug({x:100, y:100},'#svgc');
 
 });
 

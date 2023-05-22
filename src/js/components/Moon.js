@@ -1,45 +1,56 @@
-function Moon(config) {
-    this.svgc = document.querySelector('#' + config.svgc);
+class Moon extends PSVG{
+    constructor() {
+        super();
 
-    if (config.mask) {
-        this.svgc = this.svgc.querySelector('defs #mask');
+        this.config.merge({
+            tag: 'circle',
+            r: 0,
+            stroke: '#ffffff',
+            fill: '#ffffff',
+            xOffset: 0,
+            yOffset: 0
+        });
+
+        this.config.merge.apply(this.config, arguments);
+
+        this.config.merge(this.configCalc(), {
+            cx: this.config.x,
+            cy: this.config.y
+        });
+
+        // this.draw();
     }
 
-    this.svg_moon_id = ID();
-    this.x = config.x;
-    this.y = config.y;
-    this.color = config.color;
-    this.xOffset = config.xOffset;
-    this.yOffset = config.yOffset;
-    this.radius = config.radius;
-
-    if(!this.svgc) {
-        console.error('No SVG Canvas found.');
+    draw() {
+        super.draw();
     }
 
-    this.draw = function() {
-        if (!document.querySelector('#svg-moon-id-' + this.svg_moon_id)) {
-            this.svgc.innerHTML += this.initMoonHtml();
-        }
-    }
-
-    this.initMoonHtml = function() {
-        const intersects = intersectTwoCircles(this.x ,this.y, this.radius, (this.x + this.xOffset), (this.y + this.yOffset), this.radius);
-        arcHtml = '';
+    configCalc() {
+        const intersects = intersectTwoCircles(this.config.x ,this.config.y, this.config.r, (this.config.x + this.config.xOffset), (this.config.y + this.config.yOffset), this.config.r);
         if (intersects[1]) {
             const startingPoint = intersects[0];
             const midPoint = intersects[1];
-            const Arc1 = svgArcCircle(this.radius, midPoint[0], midPoint[1], 'inwards');
-            const Arc2 = svgArcCircle(this.radius, startingPoint[0], startingPoint[1], 'outwards', false);
-            arcHtml = '<path d="M' + startingPoint[0] + ' ' + startingPoint[1] + '' + Arc1 + ' ' + Arc2 + '" stroke="' + this.color + '" stroke-width="0" fill="' + this.color + '"/>'
+            const Arc1 = svgArcCircle(this.config.r, midPoint[0], midPoint[1], 'inwards');
+            const Arc2 = svgArcCircle(this.config.r, startingPoint[0], startingPoint[1], 'outwards', false);
             if (isNaN(startingPoint[0]) || isNaN(startingPoint[1]) || isNaN(midPoint[0]) || isNaN(midPoint[1])) {
-                arcHtml = '<circle id="svg-moon-id-' + this.svg_moon_id + '" svg-moon-id="' + this.svg_moon_id + '" stroke="' + this.color + '" stroke-width="2" fill="none" r="' + (this.radius - 1) + '" cx="' + (this.x) + '" cy="' + (this.y) + '"/>';
+                return {
+                    tag: 'circle',
+                    r: this.config.r - 1,
+                    fill: 'none'
+                };
             }
             else if (intersects[0][0] == intersects[1][0] && intersects[0][1] == intersects[1][1]) {
-                arcHtml = '<circle id="svg-moon-id-' + this.svg_moon_id + '" svg-moon-id="' + this.svg_moon_id + '" stroke="' + this.color + '" stroke-width="2" fill="' + this.color + '" r="' + (this.radius - 1) + '" cx="' + (this.x) + '" cy="' + (this.y) + '"/>';
+                return {
+                    tag: 'circle',
+                    r: this.config.r - 1
+                };
             } 
+            else {
+                return {
+                    tag: 'path',
+                    d: 'M' + startingPoint[0] + ' ' + startingPoint[1] + '' + Arc1 + ' ' + Arc2,
+                };
+            }
         }
-
-        return arcHtml;
     }
 }
