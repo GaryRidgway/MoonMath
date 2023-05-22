@@ -38,18 +38,24 @@ function DecoratedMoon(config, objOnly = false) {
     this.radialLines = []
     this.circles = [];
     this.initDecoratedMoonHtml = function() {
-        const rLines = new Config(
-            config,
-            {
-                lineLength: 10,
-                gap: 25
-            }
-        );
+        rLines = {
+            'is-mask': config.mask,
+            svgc: config.svgc,
+            r: this.radius,
+            gap: 25,
+            lineLength:10,
+            lineCount: 50,
+            x: this.x,
+            y: this.y,
+        };
+
         this.radialLines.push(new RadialLines(rLines));
 
 
         const newCNF1 = 
         {
+            'is-mask': config.mask,
+            svgc: config.svgc,
             stroke_width: 1,
             fill: 'none',
             r: this.radius + rLines.gap + 1

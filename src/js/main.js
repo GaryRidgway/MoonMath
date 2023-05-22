@@ -48,32 +48,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
         x: 300,
         y: 300,
         radius: 100,
-        mask: true,
-        'is-mask': true,
+        mask: false,
+        'is-mask': false,
         svgc: 'svgc'
     };
     let config = new Config(configObjOnly);
+    console.log(config);
     const dMoon = new DecoratedMoon(config, configObjOnly);
     dMoon.draw();
-
-    const LINE = new NLine({
-        x:50,
-        y:50,
-        x2:100,
-        y2:100
-
-    });
-    LINE.draw();
-
-    const RL = new NRadialLines({
-        r: 50,
-        gap: 20,
-        lineLength:50,
-        lineCount: 100,
-        x: 200,
-        y: 200,
-    });
-    RL.draw();
 
     visualDebug({x:100, y:100},'#svgc');
 

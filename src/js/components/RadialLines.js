@@ -1,54 +1,55 @@
-function RadialLines(config) {
-    this.svgc = document.querySelector('#' + config.svgc);
-    if (config.mask) {
-        this.svgc = this.svgc.querySelector('defs #mask');
-    }
+class RadialLines extends PSVG {
+    constructor() {
+        super();
 
-    if(!this.svgc) {
-        console.error('No SVG Canvas found.');
-    }
-
-    this.svg_radial_lines_id = ID();
-    this.x = config.x;
-    this.y = config.y;
-    this.color = config.color;
-
-    this.radius = config.radius;
-    this.gap = config.gap;
-    this.lineLength = config.lineLength;
-    this.gapBetweenMoonAndDecorationLines = this.radius + this.gap;
-
-    this.draw = function() {
-        this.radialDecorationLinesData['lines'].forEach(function(line, index) {
-            line.draw();
+        this.config.merge({
+            container: true,
+            'is-mask': false,
+            r: 0,
+            stroke: '#ffffff',
+            gap: 0,
+            lineLength:0,
+            lineCount: 0,
+            'stroke-dasharray' : 'none',
         });
 
-        this.attenuate();
-    }
-
-    this.attenuate = function() {
-        const lineCount = this.radialDecorationLinesData['lineCount'];
-        const coords = {x: this.x, y: this.y}
-        const radius = this.radius;
-        this.radialDecorationLinesData['lines'].forEach(function(line, index) {
-            line.setLineAttrs(
-                (360/lineCount)*index,
-                (coords.x) + 'px ' + (coords.y) + 'px',
-                1
-            );
+        this.config.merge.apply(this.config, arguments);
+        
+        const gapBetweenMoonAndDecorationLines = this.config.r + this.config.gap;
+        const drawDistance = gapBetweenMoonAndDecorationLines + this.config.lineLength;
+    
+        this.config.merge({
+            gapBetweenMoonAndDecorationLines: gapBetweenMoonAndDecorationLines,
+            drawDistance : drawDistance
         });
+
+        // Initialize every line.
+        this.radialDecorationLines(this.config.lineCount);
     }
 
-    this.radialDecorationLinesData = {
-        'lines': [],
-        'lineCount': 0
-    };
-    this.drawDistance = this.gapBetweenMoonAndDecorationLines + this.lineLength;
-    this.radialDecorationLines = function(lineCount) {
+    draw() {
+
+        super.draw();
+    }
+
+    radialDecorationLines(lineCount) {
         for(let i = 0; i < lineCount; i++) {
-            this.radialDecorationLinesData['lines'].push(new line(this.x, this.y + this.gapBetweenMoonAndDecorationLines, this.x, this.y + this.gapBetweenMoonAndDecorationLines + this.lineLength, config.color, config.mask, config.svgc));
-            this.radialDecorationLinesData['lineCount']++;
+            this.render_array.push(
+                new NLine(
+                    {
+                        x: this.config.x,
+                        y: this.config.y + this.config.gapBetweenMoonAndDecorationLines,
+                        x2: this.config.x, 
+                        y2: this.config.y + this.config.gapBetweenMoonAndDecorationLines + this.config.lineLength, 
+                        stroke: this.config.stroke,
+                        'is-mask': this.config['is-mask'],
+                        'svgc-id': this.config['svgc-id'],
+                        'stroke-dasharray': this.config['stroke-dasharray'],
+                        'transform':'rotate(' + ((360/lineCount)*i) + ')',
+                        'transform-origin': (this.config.x) + 'px ' + (this.config.y) + 'px',
+                    }
+                )
+            );
         }
     }
-    this.radialDecorationLines(50);
 }
