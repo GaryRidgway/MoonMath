@@ -1,4 +1,4 @@
-function DecoratedMoon(config, objOnly = false) {
+class NDecoratedMoon extends PSVG(config, objOnly = false) {
     this.svgc = document.querySelector('#' + config.svgc);
     if (config.mask) {
         this.svgc = this.svgc.querySelector('defs #mask');

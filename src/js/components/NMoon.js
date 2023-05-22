@@ -26,9 +26,7 @@ class NMoon extends PSVG{
     }
 
     configCalc() {
-        console.log(this.config);
         const intersects = intersectTwoCircles(this.config.x ,this.config.y, this.config.r, (this.config.x + this.config.xOffset), (this.config.y + this.config.yOffset), this.config.r);
-        console.log(intersects);
         if (intersects[1]) {
             const startingPoint = intersects[0];
             const midPoint = intersects[1];

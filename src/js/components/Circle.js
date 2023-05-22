@@ -1,45 +1,24 @@
-function Circle(config) {
-    this.svgc = document.querySelector('#' + config.svgc);
+class Circle extends PSVG {
+    constructor() {
+        super();
 
-    if (config.mask) {
-        this.svgc = this.svgc.querySelector('defs #mask');
+        this.config.merge({
+            tag: 'circle',
+            r: 0,
+            stroke: '#ffffff'
+        });
+
+        this.config.merge.apply(this.config, arguments);
+
+        this.config.merge({
+            cx: this.config.x,
+            cy: this.config.y
+        });
+
+        // this.draw();
     }
 
-    this.svg_circle_id = ID();
-    this.x = config.x;
-    this.y = config.y;
-    this.color = config.color;
-    this.xOffset = config.xOffset;
-    this.yOffset = config.yOffset;
-    this.radius = config.radius;
-    this.stroke_width = config.stroke_width;
-    this.fill = config.fill;
-    this.dash = config.dash ? config.dash : null;
-
-    if(!this.svgc) {
-        console.error('No SVG Canvas found.');
-    }
-
-    this.draw = function() {
-        if (!document.querySelector('#svg-circle-id-' + this.svg_circle_id)) {
-            this.svgc.innerHTML += this.initCircleHtml();
-        }
-    }
-
-    this.initCircleHtml = function() {
-        return '\
-            <circle \
-                id="svg-circle-id-' + this.svg_circle_id + '" \
-                svg-circle-id="' + this.svg_circle_id + '" \
-                stroke="' + this.color + '" \
-                stroke-width="' + this.stroke_width + '" \
-                fill="' + this.fill + '" \
-                r="' + (this.radius - 1) + '" \
-                cx="' + (this.x) + '" \
-                cy="' + (this.y) + '"\
-                ' + (this.dash ? 'stroke-dasharray="' + this.dash + '"': '')  + '\
-            />\
-        ';
-
+    draw() {
+        super.draw();
     }
 }

@@ -1,21 +1,22 @@
-class NCircle extends PSVG {
+class NLine extends PSVG {
     constructor() {
         super();
 
         this.config.merge({
-            tag: 'circle',
-            r: 0,
+            tag: 'line',
+            x2: 0,
+            y2: 0,
+            transform: '',
+            'transform-origin': '',
             stroke: '#ffffff'
         });
 
         this.config.merge.apply(this.config, arguments);
 
         this.config.merge({
-            cx: this.config.x,
-            cy: this.config.y
+            x1: this.config.x,
+            y1: this.config.y
         });
-
-        // this.draw();
     }
 
     draw() {

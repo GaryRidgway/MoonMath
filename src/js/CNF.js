@@ -10,6 +10,7 @@ class CNF {
 
     defaultConfig() {
         const dCNF = {
+            container: false,
             tag: 'div',
             x : 0,
             y : 0,
