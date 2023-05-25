@@ -25,7 +25,34 @@ class DecoratedMoon extends PSVG {
     }
 
     initDecoratedMoonHtml() {
-        this.render_array.push(new RadialLines(this.config));
+        this.render_array.push(new RadialSplay(
+            Line,
+            {
+                'is-mask': true,
+                x:  this.config.x + 0,
+                y:  this.config.y + 0,
+                x2: this.config.x + 0,
+                y2: this.config.y + 10,
+                stroke: '#ffffff'
+            },
+            this.config
+        ));
+
+        this.render_array.push(new RadialSplay(
+            Circle,
+            {
+                'is-mask': true,
+                x:  this.config.x + 0,
+                y:  this.config.y + 0,
+                r: 5,
+                stroke: '#ffffff',
+                fill: '#ffffff'
+            },
+            this.config,
+            {
+                r: this.config.r + 5
+            }
+        ));
 
         const newCNF1 = 
         {
