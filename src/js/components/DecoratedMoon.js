@@ -6,8 +6,8 @@ class DecoratedMoon extends PSVG {
             container: true,
             stroke: '#ffffff',
             gap: 0,
-            lineLength:0,
-            lineCount: 0,
+            lineLength: 0,
+            objCount: 0,
         });
 
         this.config.merge.apply(this.config, arguments);
@@ -32,7 +32,7 @@ class DecoratedMoon extends PSVG {
                 x:  this.config.x + 0,
                 y:  this.config.y + 0,
                 x2: this.config.x + 0,
-                y2: this.config.y + 10,
+                y2: this.config.y + this.config.lineLength,
                 stroke: '#ffffff'
             },
             this.config
@@ -50,7 +50,8 @@ class DecoratedMoon extends PSVG {
             },
             this.config,
             {
-                r: this.config.r + 5
+                r: this.config.r + 5,
+                degrees: 180
             }
         ));
 

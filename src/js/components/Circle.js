@@ -4,6 +4,8 @@ class Circle extends PSVG {
 
         this.config.merge({
             r: 0,
+            x: 0,
+            y: 0,
             stroke: '#ffffff'
         });
 
