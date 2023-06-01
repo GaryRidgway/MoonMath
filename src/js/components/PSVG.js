@@ -7,11 +7,24 @@ class PSVG {
     }
 
     draw() {
+        // Run the postProcess functions.
+        this.postProcess();
+
+        if (this.config.transforms) {
+            console.log(this.config);
+        }
+
+        // If this is not a container...
         if (!this.config.container) {
             let entries = Object.keys(this.config);
 
-            let element = this.config['svgc-selector'].querySelector('#' + this.id);
-            if(!element) {
+            // Check to see if the element is already rendered.
+            let elementOnDocument = this.config['svgc-selector'].querySelector('#' + this.id);
+
+            // If it is not...
+            if(!elementOnDocument) {
+
+                // Go through and create it.
                 let elementHtmlArray = ['<' + this.config['tag']];
     
                 for (let i = entries.length-1; i >= 0 ; i--) {
@@ -34,7 +47,7 @@ class PSVG {
                 for (let i = entries.length-1; i >= 0 ; i--) {
                     const entry = this.config[entries[i].toString()];
                     if(typeof entry !== 'object' && entry !== 'none' && entry !== null) {
-                        element.setAttribute(entries[i], this.config[entries[i]]);
+                        elementOnDocument.setAttribute(entries[i], this.config[entries[i]]);
                     }
                     
                     entries.splice(i, 1);
@@ -42,6 +55,7 @@ class PSVG {
             }
         }
 
+        // Draw the child objects of the PSVG, whether it is a container or not.
         this.draw_child_objects();
     }
 
@@ -49,5 +63,26 @@ class PSVG {
         this.render_array.forEach(function(element) {
             element.draw();
         })
+    }
+
+    postProcess() {
+        this.applyTransforms();
+    }
+
+    applyTransforms() {
+        if (this.config.transforms) {
+            let transforms = '';
+            const TFS = this.config.transforms;
+            Object.keys(this.config.transforms).forEach(function(key) {
+                transforms += key + '(' + TFS[key] + ') '
+            });
+
+            this.config.merge(
+                {
+                    'transform': transforms,
+                    'transform-origin': (this.config.x) + 'px ' + (this.config.y) + 'px',
+                }
+            )
+        }
     }
 }

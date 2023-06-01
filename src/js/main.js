@@ -55,8 +55,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         Circle,
         {
             'is-mask': true,
-            x:  base.x + 0,
-            y:  base.y + 0,
             r: 1,
             fill: base.stroke
         },
@@ -145,19 +143,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
     arcDots(arc33Base, arc31DotsConf, rotaryOffset + 180);
     arcDots(arc34Base, arc32DotsConf, rotaryOffset + 180-2.5);
 
-
-    // render.push(new Circle(
-    //     base,
-    //     {
-    //         'is-mask': false,
-    //         stroke: base.stroke,
-    //         y: base.y + centerCircleR*2 + yOff,
-    //         r: centerCircleR + 1,
-    //     }
-    // ));
-
     //#endregion verticalCircles
 
+    render.push(new Circle(
+        base,
+        {
+            r: base.r*.45*3
+        }
+    ))
+    render.push(new Rect(
+        base,
+        {
+            width: 150,
+            height: 150,
+            rotation: 45
+        }
+    ))
     draw();
 
     function draw() {
