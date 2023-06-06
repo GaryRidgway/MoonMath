@@ -17,11 +17,25 @@
   <svg id="svgc" width="100%" height="100%">
     <defs>
       <mask id="mask">
-        <!-- <rect fill="#000000" x="0" y="0" width="100%" height="100%"></rect> -->
       </mask>
+      <radialGradient id="Gradient">
+        <stop offset="0%" stop-color="rgba(255, 255, 255, 1)" />
+        <stop offset="8%" stop-color="rgba(255, 255, 255, .7)" />
+        <stop offset="25%" stop-color="rgba(255, 255, 255, .2)" />
+        <stop offset="100%" stop-color="rgba(255, 255, 255, 0)" />
+      </radialGradient>
     </defs>
 
     <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/src/assets/YellowMoon.png" mask="url(#mask)"></image>
+    <!-- <rect
+      id="glow"
+      x="0"
+      y="0"
+      width="400"
+      height="400"
+      fill="url(#Gradient)"
+      mask="url(#mask)"
+    /> -->
   </svg>
 
   <svg id="svgc-2" width="200px" height="200px">
@@ -36,13 +50,17 @@
 <script src="./src/js/components/Moon.js"></script>
 <script src="./src/js/components/Line.js"></script>
 <script src="./src/js/components/DecoratedMoon.js"></script>
+<script src="./src/js/components/Shape.js"></script>
 <script src="./src/js/components/RadialSplay.js"></script>
 <script src="./src/js/components/Circle.js"></script>
 <script src="./src/js/components/Rect.js"></script>
 
+<script src="./src/js/behaviors/glow.js"></script>
+
 <script src="./src/js/main.js"></script>
 <script src="./src/js/ID.js"></script>
 <script src="./src/js/helpers.js"></script>
+<script src="./src/js/seededRandom.js"></script>
 <script src="./src/js/Config.js"></script>
 <script src="./src/js/CNF.js"></script>
 </body>

@@ -10,10 +10,6 @@ class PSVG {
         // Run the postProcess functions.
         this.postProcess();
 
-        if (this.config.transforms) {
-            console.log(this.config);
-        }
-
         // If this is not a container...
         if (!this.config.container) {
             let entries = Object.keys(this.config);

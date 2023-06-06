@@ -17,8 +17,6 @@ class Moon extends PSVG{
             cx: this.config.x,
             cy: this.config.y
         });
-
-        // this.draw();
     }
 
     draw() {

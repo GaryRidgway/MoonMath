@@ -50,3 +50,7 @@ function svgArc(rx, ry, x, y, direction, aFlag = true) {
 function roundHundred(value){
     return Math.ceil(value/100)*100
  }
+
+ function lineDistance(p1, p2) {
+    return Math.hypot(p2.x - p1.x, p2.y - p1.y)
+  }

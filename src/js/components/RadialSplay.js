@@ -3,7 +3,7 @@ class RadialSplay extends PSVG {
         const args = Array.prototype.slice.call(arguments, 2);
         super(args);
 
-        // The first argument is the Class (Ex; Line, circle, etc.) to be radially splayed.
+        // The first argument is the Class (Ex; Line, Circle, etc.) to be radially splayed.
         this.obj = arguments[0];
 
         // The second argument is the config to be set for that object.
@@ -18,7 +18,7 @@ class RadialSplay extends PSVG {
             objCount: 0,
             'stroke-dasharray' : 'none',
             degrees: 360,
-            rotation: 0
+            rotation: 0,
         });
 
         this.config.merge.apply(this.config, args);
@@ -44,17 +44,19 @@ class RadialSplay extends PSVG {
 
     radialObjects(objCount) {
         for(let i = 0; i < objCount; i++) {
+            const instance = new this.obj(
+                this.objArgs,
+                {
+                    'transform':'\
+                        rotate(' + ((this.config.degrees/objCount)*i + this.config.rotation) + ')\
+                        translate(0 ' + this.config.gap + ')\
+                    ',
+                    'transform-origin': (this.config.x) + 'px ' + (this.config.y) + 'px',
+                }
+            )
+
             this.render_array.push(
-                new this.obj(
-                    this.objArgs,
-                    {
-                        'transform':'\
-                            rotate(' + ((this.config.degrees/objCount)*i + this.config.rotation) + ')\
-                            translate(0 ' + this.config.gap + ')\
-                        ',
-                        'transform-origin': (this.config.x) + 'px ' + (this.config.y) + 'px',
-                    }
-                )
+                instance
             );
         }
     }

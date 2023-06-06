@@ -8,7 +8,8 @@ class Line extends PSVG {
             y2: 0,
             transform: '',
             'transform-origin': '',
-            stroke: '#ffffff'
+            stroke: '#ffffff',
+            randomness: false
         });
 
         this.config.merge.apply(this.config, arguments);
@@ -17,6 +18,17 @@ class Line extends PSVG {
             x1: this.config.x,
             y1: this.config.y
         });
+
+        if (this.config.randomness) {
+            const length = lineDistance(
+                {x: this.config.x1, y: this.config.y1},
+                {x: this.config.x2, y: this.config.y2}
+            );
+
+            const chosenRand = rand();
+            const randLen = length * chosenRand;
+            this.config.y2 = this.config.y2 - randLen;
+        }
     }
 
     draw() {

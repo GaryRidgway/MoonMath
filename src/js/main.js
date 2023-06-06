@@ -1,5 +1,8 @@
 const render = [];
+let rand = null;
+
 document.addEventListener("DOMContentLoaded", function(event) { 
+    rand = randFromSeed('Alan Way');
     const base = {
         x: 200,
         y: 200,
@@ -145,20 +148,85 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //#endregion verticalCircles
 
+    //#region largeDecShapes
     render.push(new Circle(
         base,
         {
             r: base.r*.45*3
         }
     ))
-    render.push(new Rect(
+    // render.push(new Circle(
+    //     base,
+    //     {
+    //         r: base.r*.45*3 + 19
+    //     }
+    // ))
+
+    // render.push(new Rect(
+    //     base,
+    //     {
+    //         width: 217,
+    //         height: 217,
+    //         rotation: 45
+    //     }
+    // ))
+
+    //#endregion largeDecShapes
+
+    let decoLines = {...base};
+    decoLines.x = 0;
+    decoLines.y = 0;
+    const length = base.r * .5;
+    decoLines.x2 = decoLines.x + base.x;
+    decoLines.y2 = decoLines.y + base.y + length;
+    decoLines.randomness = true;
+
+    render.push(new RadialSplay(
+        Line,
+        decoLines,
+        {
+            'is-mask': true,
+            r: base.r * .45,
+            x: base.x,
+            y: base.y,
+            objCount: 100,
+            degrees: 360
+        }
+    ));
+
+    render.push(new Shape(
         base,
         {
-            width: 150,
-            height: 150,
-            rotation: 45
+            'is-mask': true,
+            pointsArray: [
+                {x: 0, y: -46},
+                {x: 250, y: 0},
+                {x: 0, y: 46},
+                {x: -250, y: 0},
+            ],
+            referenceOrigin: true
         }
-    ))
+    ));
+
+    // let decoLines2 = {...decoLines};
+    // decoLines2.x = 0;
+    // decoLines2.y = 0;
+    // decoLines2.x2 = decoLines2.x + base.x;
+    // decoLines2.y2 = decoLines2.y + base.y + 19;
+    // decoLines2.randomness = false;
+    // render.push(new RadialSplay(
+    //     Line,
+    //     decoLines2,
+    //     {
+    //         'is-mask': true,
+    //         r: base.r + 35,
+    //         x: base.x,
+    //         y: base.y,
+    //         objCount: 20,
+    //         degrees: 360
+    //     }
+    // ));
+
     draw();
 
     function draw() {
